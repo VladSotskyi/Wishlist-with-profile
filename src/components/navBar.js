@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import SignModal from "./modal";
 
 function NavBar({ openModal }) {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleOpen = () => setShow(true);
   return (
     <>
       <nav className="navbar navbar-expand-md flex-row justify-content-between navBar px-5 mt-3">
@@ -22,10 +26,11 @@ function NavBar({ openModal }) {
             </Link>
           </li>
         </ul>
-        <button type="button" className="btn btn-light" onClick={openModal}>
+        <button type="button" className="btn btn-light" onClick={handleOpen}>
           Sign Up
         </button>
       </nav>
+      <SignModal showModal={show} closeModal={handleClose} />
     </>
   );
 }
