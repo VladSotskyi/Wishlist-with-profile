@@ -1,0 +1,52 @@
+.form-font{
+    font-family: "Raleway", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+}
+
+.info-input{
+    margin: 10px 0;
+}
+.info-input::placeholder{
+    font-size: 14px;
+}
+
+
+.input-title{
+    font-size: 20px;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.form-button{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.form-button button{
+    border: none;
+    border-radius: 20px;
+    padding: 10px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.form-button button.active{
+    background-color: #FF6347;
+    color: black;
+}
+
+.form-button button.disabled{
+    background-color: #cccccc; /* Серый цвет для неактивной кнопки */
+    color: #666666; /* Более светлый цвет текста */
+    cursor: not-allowed; /* Курсор запрещения */
+    border: none;
+}
+
+.form-button button:hover {
+    background-color: #f83b17; /* Изменение цвета при наведении */
+}
