@@ -5,7 +5,7 @@ import Button from "react-bootstrap/Button";
 function LogForm() {
   return (
     <>
-      <Form className="signup-form form-font">
+      <Form className="signup-form active-font">
         <span className="input-title">Email*</span>
         <Form.Control
           className="info-input"

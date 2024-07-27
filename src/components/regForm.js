@@ -10,7 +10,7 @@ function RegForm() {
 
   return (
     <>
-      <Form className="signup-form form-font">
+      <Form className="signup-form active-font">
         <span className="input-title">Name*</span>
         <Form.Control
           className="info-input"
