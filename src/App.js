@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/navBar";
 import Home from "./pages/home";
 import Explore from "./pages/explore";
+import SolarSystem from "../src/components/solarSystem";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/explore" element={<Explore />}></Route>
       </Routes>
+      <SolarSystem />
     </Router>
   );
 }
