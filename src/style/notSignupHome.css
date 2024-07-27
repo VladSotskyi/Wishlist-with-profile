@@ -1,0 +1,86 @@
+.container{
+    margin-top: 2.5lh;
+}
+
+.container h1, p{
+    text-align: center;
+}
+
+.logo{
+    font-size: 70px;
+    color: #585656;
+}
+
+.tagline{
+    font-size: 35px;
+    color: #585656;
+}
+
+.instruction{
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    width: 100%;
+}
+
+.wish-container {
+    margin: 30px;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+.circle {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    background-color: rgb(245, 180, 179);
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.arrow-container {
+    display: flex;
+    align-items: center;
+}
+
+.right-arrow{
+    display: inline-block;
+    margin: 30px;
+    width: 15px;
+    height: 15px;
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+    transform-origin: center;
+    transform: rotate(135deg);
+}
+
+.right-arrow::after{
+    content: "";
+    display: block;
+    width: 2px;
+    height: 45px;
+    background-color: #000000;
+    transform: rotate(-45deg) translate(15px, 4px);
+}
