@@ -3,35 +3,39 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import "../style/log-reg-form.css";
 import PasswordChecklist from "react-password-checklist";
-import { auth } from "../firebase";
+import { auth, db } from "../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { doc, setDoc } from "firebase/firestore";
+import { toast } from "react-toastify";
 
-function RegForm() {
+function RegForm({ switchToLogin }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordValidation, setPasswordValidation] = useState(false);
-  const [error, setError] = useState(null);
 
   const handleSignUp = async (e) => {
     console.log("HANDLED");
     e.preventDefault();
-    if (!passwordValidation) return; // Проверка валидации пароля
+    if (!passwordValidation) return;
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      const user = auth.currentUser;
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password,
+      );
+      const user = userCredential.user;
       console.log(user);
+      await setDoc(doc(db, "users", user.uid), {
+        name: name,
+        email: email,
+        uid: user.uid,
+      });
       console.log("Registration is successful!");
+      toast.success("Registration complete!", { position: "top-center" });
+      switchToLogin();
     } catch (error) {
-      if (
-        error.name === "Unhandled Promise Rejection: AbortError: AbortError"
-      ) {
-        console.error("Request was aborted:", error);
-        setError("The request was aborted. Please try again.");
-      } else {
-        console.error("Error during registration:", error);
-        setError(error.message);
-      }
+      console.log(error);
     }
   };
 
@@ -81,7 +85,6 @@ function RegForm() {
             Register
           </Button>
         </div>
-        {error && <div style={{ color: "red" }}>{error}</div>}
       </Form>
     </>
   );

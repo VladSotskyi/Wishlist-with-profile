@@ -4,10 +4,12 @@ import NavBar from "./components/navBar";
 import Home from "./pages/home";
 import Explore from "./pages/explore";
 import SolarSystem from "../src/components/solarSystem";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
     <Router>
+      <ToastContainer />
       <NavBar />
       <Routes>
         <Route path="/" element={<Home />}></Route>

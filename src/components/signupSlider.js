@@ -1,24 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import "../style/signup-slider.css";
 
-function SignupSlider({ handleSwitch }) {
-  const [activeButton, setActiveButton] = useState("register");
-
+function SignupSlider({ handleSwitch, activeForm }) {
   const handleBundleClick = (type) => {
     handleSwitch(type);
-    setActiveButton(type);
   };
   return (
     <div className="slider">
       <button
-        className={`slider-button ${activeButton === "register" ? "active" : ""}`}
+        className={`slider-button ${activeForm === "register" ? "active" : ""}`}
         onClick={() => handleBundleClick("register")}
       >
         Register
       </button>
       <div className="divider"></div>
       <button
-        className={`slider-button ${activeButton === "login" ? "active" : ""}`}
+        className={`slider-button ${activeForm === "login" ? "active" : ""}`}
         onClick={() => handleBundleClick("login")}
       >
         Login

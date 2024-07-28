@@ -11,15 +11,19 @@ function SignModal({ showModal, closeModal }) {
     setForm(formType);
   };
 
+  const handleSwitchToLogin = () => {
+    handleFormSwitch("login");
+  };
+
   return (
     <Modal show={showModal} onHide={closeModal}>
       <Modal.Header closeButton></Modal.Header>
-      <SignupSlider handleSwitch={handleFormSwitch} />
+      <SignupSlider handleSwitch={handleFormSwitch} activeForm={form} />
       <Modal.Body>
         {form === "register" ? (
-          <RegForm />
+          <RegForm switchToLogin={handleSwitchToLogin} />
         ) : form === "login" ? (
-          <LogForm />
+          <LogForm closeModal={closeModal} />
         ) : (
           ""
         )}
