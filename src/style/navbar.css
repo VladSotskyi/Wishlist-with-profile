@@ -20,11 +20,11 @@ button.make-wish:hover{
     margin-right: 5px;
 }
 
-li+li{
+.nav-item + .nav-item{
     text-decoration: underline 1px;
 }
 
-li+li:hover{
+.nav-item + .nav-item:hover{
     transform: translateY(-2px);
     transition: transform 0.5s ease;
 }
