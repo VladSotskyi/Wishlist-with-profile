@@ -4,8 +4,12 @@ import SignModal from "./modal";
 import "../style/navbar.css";
 import wand from "../images/wand.png";
 import account from "../images/personal-account.png";
+import { useAuth } from "../context/authContext";
+import LogOutButton from "./logOutButton";
 
 function NavBar() {
+  const { currentUser } = useAuth();
+
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
@@ -30,10 +34,14 @@ function NavBar() {
             </Link>
           </li>
         </ul>
-        <button type="button" className="btn signup-btn" onClick={handleOpen}>
-          <img src={account} alt="account-img" className="acc-btn-img" />
-          Login/Register
-        </button>
+        {currentUser ? (
+          <LogOutButton />
+        ) : (
+          <button type="button" className="btn signup-btn" onClick={handleOpen}>
+            <img src={account} alt="account-img" className="acc-btn-img" />
+            Login/Register
+          </button>
+        )}
       </nav>
       <SignModal showModal={show} closeModal={handleClose} />
     </>
