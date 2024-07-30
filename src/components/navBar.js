@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import SignModal from "./modal";
+import SignModal from "./modalAuth";
 import "../style/navbar.css";
 import wand from "../images/wand.png";
 import account from "../images/personal-account.png";

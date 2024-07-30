@@ -29,11 +29,11 @@ button.make-wish:hover{
     transition: transform 0.5s ease;
 }
 
-button.signup-btn{
+button.signup-btn, button.logout-btn{
     border: 1px solid black;
 }
 
-button.signup-btn:hover{
+button.signup-btn:hover, button.logout-btn:hover{
 
     background-color: #fd8686;
 }

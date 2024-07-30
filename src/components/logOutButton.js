@@ -1,6 +1,7 @@
 import React from "react";
 import { auth } from "../firebase";
 import { signOut } from "firebase/auth";
+import "../style/navbar.css";
 
 function LogOutButton() {
   const handleLogout = async () => {

@@ -8,7 +8,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { doc, setDoc } from "firebase/firestore";
 import { toast } from "react-toastify";
 
-function RegForm({ switchToLogin }) {
+function RegForm({ closeModal }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,9 +32,20 @@ function RegForm({ switchToLogin }) {
         uid: user.uid,
       });
       console.log("Registration is successful!");
-      toast.success("Registration complete!", { position: "top-center" });
-      switchToLogin();
+      toast.success("Registration complete!", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+      closeModal();
     } catch (error) {
+      if (error.code === "auth/email-already-in-use") {
+        toast.error("Email is already in use", {
+          position: "top-center",
+          autoClose: 1500,
+        });
+      } else {
+        toast.error(error.message, { position: "top-center", autoClose: 1500 });
+      }
       console.log(error);
     }
   };

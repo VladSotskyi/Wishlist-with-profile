@@ -9,16 +9,38 @@ function LogForm({ closeModal }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  };
+
   const handleSignIn = async (e) => {
     console.log("HANDLED");
     e.preventDefault();
+    if (!validateEmail(email)) {
+      toast.error("Invalid email format!", {
+        position: "top-center",
+        autoClose: 1500,
+      });
+      return;
+    }
     try {
       await signInWithEmailAndPassword(auth, email, password);
       console.log("Login is successful!");
-      toast.success("User Logged-in successful!", { position: "top-center" });
+      toast.success("User Logged-in successful!", {
+        position: "top-center",
+        autoClose: 1500,
+      });
       closeModal();
     } catch (error) {
-      console.log(error);
+      if (error.code === "auth/invalid-credential") {
+        toast.error("Invalid credential ! Check your email and password !", {
+          position: "top-center",
+          autoClose: 2000,
+        });
+      } else {
+        console.log(error);
+      }
     }
   };
 
