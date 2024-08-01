@@ -1,24 +1,39 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import SignModal from "./modalAuth";
+import ModalMakeAWish from "./modalMakeAWish";
 import "../style/navbar.css";
 import wand from "../images/wand.png";
 import account from "../images/personal-account.png";
 import { useAuth } from "../context/authContext";
 import LogOutButton from "./logOutButton";
+import { toast } from "react-toastify";
 
 function NavBar() {
   const { currentUser } = useAuth();
-
+  const [showWishModal, setShowWishModal] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleOpen = () => setShow(true);
+
+  const handleOpenWishModal = () => {
+    currentUser
+      ? setShowWishModal(true)
+      : toast.error("You need an account to make a wish !", {
+          position: "top-center",
+          autoClose: 2000,
+        });
+  };
   return (
     <>
       <nav className="navbar navbar-expand-md flex-row align-items-center justify-content-between navBar active-font">
         <ul className="navbar-nav flex-row align-items-center justify-content-center">
           <li className="nav-item active">
-            <button type="button" className="btn make-wish">
+            <button
+              type="button"
+              className="btn make-wish"
+              onClick={handleOpenWishModal}
+            >
               <img src={wand} alt="wand" className="make-wish-img" />
               Make a Wish
             </button>
@@ -44,6 +59,12 @@ function NavBar() {
         )}
       </nav>
       <SignModal showModal={show} closeModal={handleClose} />
+      <ModalMakeAWish
+        show={showWishModal}
+        onHide={() => {
+          setShowWishModal(false);
+        }}
+      />
     </>
   );
 }
