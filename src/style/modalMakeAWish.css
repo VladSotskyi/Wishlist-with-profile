@@ -82,7 +82,37 @@ input[type="file"] {
     cursor: pointer;
 }
 
-.uploadImage{
+.uploadImage {
     width: 20px;
     height: 20px;
+}
+
+.file-name {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+}
+
+.previewImage {
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+button.wishModalBtn{
+    margin: 10px auto;
+    background-color: #FF6347;
+    width: 20%;
+}
+
+button.wishModalBtn:hover{
+    background-color: #ff5539;
+}
+
+button.wishModalBtn:disabled{
+    border: none;
+    background-color: #737171;
 }

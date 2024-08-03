@@ -1,17 +1,75 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Upload from "../images/upload.png";
 import "../style/modalMakeAWish.css";
+import { db } from "../firebase";
+import { collection, addDoc } from "firebase/firestore";
+import { useAuth } from "../context/authContext";
 
 function ModalMakeAWish(props) {
+  const [itemName, setItemName] = useState("");
+  const [estimatedValue, setEstimatedValue] = useState("");
   const [currency, setCurrency] = useState("USD");
   const [currencySymbol, setCurrencySymbol] = useState("$");
+  const [link, setLink] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [isFormValid, setIsFormValid] = useState(false);
+  const [previewUrl, setPreviewUrl] = useState(null);
+
+  const { currentUser } = useAuth();
+
   const handleCurrencyChange = (e) => {
     const selectedCurrency = e.target.value;
     const symbol =
       e.target.options[e.target.selectedIndex].getAttribute("data-symbol");
     setCurrency(selectedCurrency);
     setCurrencySymbol(symbol);
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file && file.type.startsWith("image/")) {
+      setSelectedFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      alert("Please select an image file (jpeg, png, gif, etc.)");
+    }
+  };
+
+  useEffect(() => {
+    const validateForm = () => {
+      if (itemName.trim() !== "" && estimatedValue.trim() !== "") {
+        setIsFormValid(true);
+      } else {
+        setIsFormValid(false);
+      }
+    };
+
+    validateForm();
+  }, [itemName, estimatedValue]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = {
+      createdBy: currentUser.uid,
+      itemName: itemName,
+      estimatedValue: estimatedValue,
+      currency: currency,
+      currencySymbol: currencySymbol,
+      link: link,
+      photo_title: selectedFile ? selectedFile.name : "",
+    };
+    try {
+      console.log("Data handled !");
+      await addDoc(collection(db, "wishes"), formData); // Сохранение данных в Firestore
+      props.onHide();
+    } catch (e) {
+      console.error("Error adding document: ", e);
+    }
   };
 
   return (
@@ -26,9 +84,15 @@ function ModalMakeAWish(props) {
         <Modal.Title id="contained-modal-title-vcenter">Add wish</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <form className="makeWishModalBody" action="">
+        <form className="makeWishModalBody" action="" onSubmit={handleSubmit}>
           <span className="addWishTitle">Item name</span>
-          <input type="text" className="addWishInput" placeholder="Maserati" />
+          <input
+            type="text"
+            className="addWishInput"
+            placeholder="Maserati"
+            value={itemName}
+            onChange={(e) => setItemName(e.target.value)}
+          />
           <span className="addWishTitle">Estimated value</span>
           <div className="currency-input-wrapper">
             <span className="currency-symbol">{currencySymbol}</span>
@@ -36,6 +100,8 @@ function ModalMakeAWish(props) {
               type="number"
               className="addWishInput money currency-input"
               placeholder="100"
+              value={estimatedValue}
+              onChange={(e) => setEstimatedValue(e.target.value)}
             />
             <div className="currency-code-wrapper">
               <span className="currency-code">{currency}</span>
@@ -64,13 +130,37 @@ function ModalMakeAWish(props) {
             type="url"
             className="addWishInput link"
             placeholder="https://"
+            value={link}
+            onChange={(e) => {
+              setLink(e.target.value);
+            }}
           />
           <span className="addWishTitle">Add Photo</span>
           <label htmlFor="file-upload" className="custom-file-upload">
             <img src={Upload} alt="upload" className="uploadImage" />
             Upload image
+            <input
+              id="file-upload"
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+            />
           </label>
-          <input id="file-upload" type="file" />
+          {selectedFile && (
+            <div className="file-preview">
+              <img src={previewUrl} alt="preview" className="previewImage" />
+              <span className="file-name">
+                Selected file: {selectedFile.name}
+              </span>
+            </div>
+          )}
+          <button
+            type="submit"
+            className="btn wishModalBtn"
+            disabled={!isFormValid}
+          >
+            Submit Wish
+          </button>
         </form>
       </Modal.Body>
     </Modal>
