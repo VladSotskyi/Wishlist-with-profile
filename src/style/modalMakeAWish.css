@@ -121,6 +121,11 @@ button.wishModalBtn:disabled{
 .loading{
     text-align: center;
 }
+
+.input-error {
+    border: 1px solid red;
+}
+
 @media (max-width: 820px) {
     .currency-input-wrapper{
         width: 70%;

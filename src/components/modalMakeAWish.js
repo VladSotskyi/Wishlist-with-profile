@@ -7,6 +7,8 @@ import { collection, setDoc, doc } from "firebase/firestore";
 import { useAuth } from "../context/authContext";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Riple } from "react-loading-indicators";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function ModalMakeAWish(props) {
   const [itemName, setItemName] = useState("");
@@ -18,6 +20,9 @@ function ModalMakeAWish(props) {
   const [isFormValid, setIsFormValid] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [loading, setLoading] = useState(false); // Добавляем состояние загрузки
+  const [hasError, setHasError] = useState(false);
+
+  const MAX_ESTIMATED_VALUE = 1000000000; // 1 миллиард
 
   const { currentUser } = useAuth();
 
@@ -27,6 +32,18 @@ function ModalMakeAWish(props) {
       e.target.options[e.target.selectedIndex].getAttribute("data-symbol");
     setCurrency(selectedCurrency);
     setCurrencySymbol(symbol);
+  };
+
+  const handleEstimatedValueChange = (e) => {
+    const value = parseFloat(e.target.value);
+    if (!isNaN(value) && value > MAX_ESTIMATED_VALUE) {
+      toast.error("Estimated value cannot be over 1 billion");
+      setEstimatedValue(MAX_ESTIMATED_VALUE.toString());
+      setHasError(true); // Устанавливаем ошибку
+    } else {
+      setEstimatedValue(e.target.value);
+      setHasError(false); // Сбрасываем ошибку, если значение корректное
+    }
   };
 
   const handleFileChange = (e) => {
@@ -136,84 +153,102 @@ function ModalMakeAWish(props) {
             <Riple color="#DD6A78" size="medium" text="" textColor="" />
           </div>
         ) : (
-          <form className="makeWishModalBody" action="" onSubmit={handleSubmit}>
-            <span className="addWishTitle">Item name</span>
-            <input
-              type="text"
-              className="addWishInput"
-              placeholder="Maserati"
-              value={itemName}
-              onChange={(e) => setItemName(e.target.value)}
+          <>
+            <ToastContainer
+              position="top-right"
+              autoClose={1000}
+              newestOnTop={false}
             />
-            <span className="addWishTitle">Estimated value</span>
-            <div className="currency-input-wrapper">
-              <span className="currency-symbol">{currencySymbol}</span>
-              <input
-                type="number"
-                className="addWishInput money currency-input"
-                placeholder="100"
-                value={estimatedValue}
-                onChange={(e) => setEstimatedValue(e.target.value)}
-              />
-              <div className="currency-code-wrapper">
-                <span className="currency-code">{currency}</span>
-                <select
-                  className="currency-select"
-                  value={currency}
-                  onChange={handleCurrencyChange}
-                >
-                  <option value="USD" data-symbol="$">
-                    USD
-                  </option>
-                  <option value="EUR" data-symbol="€">
-                    EUR
-                  </option>
-                  <option value="GBP" data-symbol="£">
-                    GBP
-                  </option>
-                  <option value="JPY" data-symbol="¥">
-                    JPY
-                  </option>
-                </select>
-              </div>
-            </div>
-            <span className="addWishTitle">Link(optional)</span>
-            <input
-              type="url"
-              className="addWishInput link"
-              placeholder="https://"
-              value={link}
-              onChange={(e) => {
-                setLink(e.target.value);
-              }}
-            />
-            <span className="addWishTitle">Add Photo</span>
-            <label htmlFor="file-upload" className="custom-file-upload">
-              <img src={Upload} alt="upload" className="uploadImage" />
-              Upload image
-              <input
-                id="file-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleFileChange}
-              />
-            </label>
-            {selectedFile && (
-              <div className="file-preview">
-                <img src={previewUrl} alt="preview" className="previewImage" />
-                <span className="file-name">
-                  Selected file: {selectedFile.name}
-                </span>
-              </div>
-            )}
-            <button
-              type="submit"
-              className="btn wishModalBtn"
-              disabled={!isFormValid}
+            ;
+            <form
+              className="makeWishModalBody"
+              action=""
+              onSubmit={handleSubmit}
             >
-              Submit Wish
-            </button>
-          </form>
+              <span className="addWishTitle">Item name</span>
+              <input
+                type="text"
+                className="addWishInput"
+                placeholder="Maserati"
+                value={itemName}
+                onChange={(e) => setItemName(e.target.value)}
+              />
+              <span className="addWishTitle">Estimated value</span>
+              <div
+                className={`currency-input-wrapper ${hasError ? "input-error" : ""}`}
+              >
+                <span className="currency-symbol">{currencySymbol}</span>
+                <input
+                  type="number"
+                  className="addWishInput money currency-input"
+                  placeholder="100"
+                  value={estimatedValue}
+                  onChange={handleEstimatedValueChange}
+                />
+                <div className="currency-code-wrapper">
+                  <span className="currency-code">{currency}</span>
+                  <select
+                    className="currency-select"
+                    value={currency}
+                    onChange={handleCurrencyChange}
+                  >
+                    <option value="USD" data-symbol="$">
+                      USD
+                    </option>
+                    <option value="EUR" data-symbol="€">
+                      EUR
+                    </option>
+                    <option value="GBP" data-symbol="£">
+                      GBP
+                    </option>
+                    <option value="JPY" data-symbol="¥">
+                      JPY
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <span className="addWishTitle">Link(optional)</span>
+              <input
+                type="url"
+                className="addWishInput link"
+                placeholder="https://"
+                value={link}
+                onChange={(e) => {
+                  setLink(e.target.value);
+                }}
+              />
+              <span className="addWishTitle">Add Photo</span>
+              <label htmlFor="file-upload" className="custom-file-upload">
+                <img src={Upload} alt="upload" className="uploadImage" />
+                Upload image
+                <input
+                  id="file-upload"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
+              </label>
+              {selectedFile && (
+                <div className="file-preview">
+                  <img
+                    src={previewUrl}
+                    alt="preview"
+                    className="previewImage"
+                  />
+                  <span className="file-name">
+                    Selected file: {selectedFile.name}
+                  </span>
+                </div>
+              )}
+              <button
+                type="submit"
+                className="btn wishModalBtn"
+                disabled={!isFormValid}
+              >
+                Submit Wish
+              </button>
+            </form>
+          </>
         )}
       </Modal.Body>
     </Modal>
