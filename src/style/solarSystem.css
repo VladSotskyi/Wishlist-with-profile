@@ -1,0 +1,92 @@
+.solar-system-container {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 26%; /* Высота половины системы */
+    width: 100%; /* Ширина всей системы */
+    overflow: hidden; /* Скрываем нижнюю половину системы */
+    pointer-events: none;
+}
+
+.solar-system {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+}
+
+.sun{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px; /* Диаметр круга */
+    height: 50px;
+    background-color: yellow;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.orbit {
+    position: absolute;
+    border: 1px solid black;
+    border-radius: 50%;
+    animation: rotate 10s linear infinite;
+}
+
+.orbit1 { width: 400px; height: 400px; top: 50px; left: 50px; animation-duration: 16s; }
+.orbit2 { width: 350px; height: 350px; top: 75px; left: 75px; animation-duration: 14s; }
+.orbit3 { width: 300px; height: 300px; top: 100px; left: 100px; animation-duration: 12s; }
+.orbit4 { width: 250px; height: 250px; top: 125px; left: 125px; animation-duration: 10s;}
+.orbit5 { width: 200px; height: 200px; top: 150px; left: 150px; animation-duration: 8s ;}
+.orbit6 {width: 150px; height: 150px; top: 175px; left: 175px; animation-duration: 6s ;}
+.orbit7 {width: 100px; height: 100px; top: 200px; left: 200px; animation-duration: 4s ;}
+
+.icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+}
+
+.icon1 { top: 0; left: 50%;}
+.icon2 { top: 50%; left: 100%;}
+.icon3 { top: 100%; left: 50%;}
+.icon4 { top: 50%; left: 0;}
+.icon5 { top: 0; left: 50%;}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Медиазапрос для скрытия solar-system-container на экранах 768px и меньше */
+
+@media (max-width: 768px) {
+    .solar-system-container {
+        height: 33%;
+    }
+}
+
+@media (max-width: 768px) and (min-height: 1024px){
+    .solar-system-container{
+        display: none;
+    }
+}
+
+
+/* Скрываем solar-system-container при горизонтальной ориентации на мобильных устройствах */
+@media (max-width: 1024px) and (orientation: landscape) {
+    .solar-system-container {
+        display: none;
+    }
+}

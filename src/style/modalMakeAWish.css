@@ -1,0 +1,138 @@
+.makeWishModalBody{
+    display: flex;
+    flex-direction: column;
+}
+
+span{
+    font-weight: 500;
+}
+
+.addWishTitle{
+    margin: 5px 0;
+}
+
+.addWishInput{
+    border: 1px solid black;
+    border-radius: 5px;
+    padding-left: 10px;
+}
+
+.money, .link{
+    width: 30%;
+}
+
+.currency-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 8px;
+    padding: 5px ;
+    width: 30%;
+}
+
+.currency-symbol {
+    color: black;
+    margin-right: 10px;
+}
+
+.currency-input {
+    border: none;
+    outline: none;
+    padding: 0;
+    flex: 1;
+}
+
+.currency-code-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.currency-code {
+    color: black;
+    margin-left: 10px;
+    border-left: 1px solid black;
+    padding-left: 10px;
+}
+
+.currency-select {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid black;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.uploadImage {
+    width: 20px;
+    height: 20px;
+}
+
+.file-name {
+    font-size: 14px;
+    color: #333;
+    margin-top: 5px;
+}
+
+.previewImage {
+    width: 50px;
+    height: 50px;
+    margin-top: 10px;
+    border-radius: 5px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+button.wishModalBtn{
+    margin: 10px auto;
+    background-color: #FF6347;
+    width: 20%;
+    border: none;
+}
+
+button.wishModalBtn:hover{
+    background-color: #ff5539;
+}
+
+button.wishModalBtn:disabled{
+    border: none;
+    background-color: #737171;
+}
+
+.loading{
+    text-align: center;
+}
+@media (max-width: 820px) {
+    .currency-input-wrapper{
+        width: 70%;
+    }
+    .link{
+        width: 70%;
+    }
+    .custom-file-upload{
+        width: 40%;
+    }
+    button.wishModalBtn{
+        width: 40%;
+        margin-top: 20px;
+    }
+}

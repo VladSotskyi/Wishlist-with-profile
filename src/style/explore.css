@@ -1,0 +1,178 @@
+.search-container {
+    position: relative;
+    width: 40%;
+    margin: 20px auto;
+}
+
+.searchBar {
+    width: 100%;
+    height: 30px;
+    padding-left: 35px;
+    border: 1px solid black;
+    border-radius: 10px;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.searchBar:focus,
+.searchBar:focus-visible {
+    outline: none;
+    border-color: black;
+    box-shadow: none;
+}
+
+.search-container::after {
+    content: "";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    background-image: url('../images/magnifying-glass.png');
+    background-size: cover;
+    pointer-events: none;
+}
+
+.explore-panel {
+    position: relative;
+    max-height: 700px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+.explore-list {
+    padding-top: 25px;
+}
+
+.scroll-button {
+    position: absolute;
+    background: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+}
+
+.up{
+    rotate: 199grad;
+}
+
+.explore-item img {
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+}
+
+.button-group{
+    display: flex;
+    justify-content: space-around;
+}
+
+img.exploreLinkImg, img.favorite-button {
+    cursor: pointer;
+    border-radius: 0;
+    width: 30px;
+    height: 30px;
+}
+
+img.exploreLinkImg.disabled {
+    opacity: 20%;
+    cursor: default;
+}
+
+.explore-item {
+    position: relative;
+    width: 65%;
+    height: 70px;
+    margin: 40px auto 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(221, 106, 120, 0.5);
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.scroll-button{
+    position: absolute;
+    left: 48%;
+}
+
+
+
+.explore-item div.createdBy{
+    position: absolute;
+    left: 15px;
+    top: -30px;
+    font-size: 15px;
+    text-align: left;
+}
+
+img.createdByPhoto{
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+.explore-item div {
+    width: 25%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.exploreItemName {
+    border-right: 1px solid black;
+}
+
+.deleteExplore {
+    display: none;
+}
+
+.deleteExploreCustom {
+    position: absolute;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    background-color: #f8f9fa;
+    top: -15px;
+    right: -15px;
+    border-radius: 10px;
+}
+
+.deleteExploreImg {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 10px;
+    height: 10px;
+}
+
+@media (max-width: 768px){
+    div.search-container{
+        width: 70%;
+    }
+    .explore-list{
+        max-height: 500px;
+    }
+    .explore-item{
+        width: 90%;
+    }
+    .explore-item div{
+        font-size: 16px;
+    }
+
+    .explore-item img.wish-image{
+        width: 40px;
+        height: 40px;
+    }
+    .explore-item img.exploreLinkImg, .explore-item img.favorite-button{
+        width: 20px;
+        height: 20px;
+    }
+    .createdBy{
+        min-width: 150px;
+    }
+}

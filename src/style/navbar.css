@@ -1,0 +1,63 @@
+nav.navbar {
+    margin: 30px 45px 0;
+}
+
+ul.navbar-nav{
+    align-items: center;
+    flex-direction: row;
+}
+button.make-wish{
+    border-radius: 20px;
+    background-color: #FF6347;
+    border: none;
+    color: black;
+    display: flex;
+    align-items: center;
+}
+button.make-wish:hover{
+    background-color: #ff5539;
+}
+
+.make-wish-img, .acc-btn-img{
+    width: 35px;
+    height: 35px;
+    margin-right: 5px;
+}
+
+.nav-item + .nav-item{
+    text-decoration: underline 1px;
+    margin-left: 10px;
+}
+
+.nav-item + .nav-item:hover{
+    transform: translateY(-2px);
+    transition: transform 0.5s ease;
+}
+
+button.signup-btn, button.logout-btn{
+    border: 1px solid black;
+}
+
+button.signup-btn:hover, button.logout-btn:hover{
+
+    background-color: #fd8686;
+}
+
+@media (min-width: 768px){
+ul.navbar-nav{
+    display: flex;
+}
+}
+
+/* Планшеты и небольшие экраны (планшеты в портретной ориентации) */
+/* Ширина экрана от 768px*/
+@media (max-width: 767px){
+    ul.navbar-nav{
+    display: none;
+    }
+    nav.navbar{
+        margin: 20px 20px 0 0;
+        justify-content: flex-end;
+    }
+}
+

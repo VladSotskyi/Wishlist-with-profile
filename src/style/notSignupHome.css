@@ -1,0 +1,152 @@
+.container {
+    margin-top: 2.5vh;
+    overflow: hidden;
+    overflow-y: auto;
+}
+
+.container h1, .container p {
+    text-align: center;
+}
+
+.logo {
+    font-size: 70px;
+    color: #585656;
+}
+
+.tagline {
+    font-size: 35px;
+    color: #585656;
+}
+
+.instruction {
+    display: flex;
+    justify-content: center;
+    margin-top: 25px;
+    width: 100%;
+    flex-wrap: wrap; /* Добавлено для адаптации на мобильных устройствах */
+}
+
+.wish-container {
+    margin: 30px;
+    background-color: transparent;
+    border: 2px solid black;
+    border-radius: 20px;
+    padding: 20px;
+    width: 20%;
+    text-align: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Медиазапросы для адаптации wish-container */
+@media (max-width: 1200px) {
+    .wish-container {
+        width: 25%;
+    }
+
+    /* Убираем стрелки на ширине 1200px и ниже */
+    p.arrow-container .right-arrow {
+        display: none;
+    }
+}
+
+@media (max-width: 992px) {
+    .wish-container {
+        width: 30%;
+    }
+}
+
+@media (max-width: 768px) {
+    .wish-container {
+        width: 45%;
+        margin: 20px;
+    }
+}
+
+@media (max-width: 576px){
+    .wish-container {
+        width: 55%;
+        margin: 15px auto; /* Центрирование на маленьких экранах */
+    }
+
+    .logo {
+        font-size: 50px; /* Уменьшение размера шрифта логотипа на маленьких экранах */
+    }
+
+    .tagline {
+        font-size: 24px; /* Уменьшение размера шрифта тега на маленьких экранах */
+    }
+
+    .circle {
+        width: 20px;
+        height: 20px;
+        font-size: 12px;
+    }
+
+    .wish-container h2 {
+        font-size: 30px;
+    }
+
+    .wish-container p {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 430px) {
+    .instruction {
+        display: none;
+    }
+    .container{
+        margin-top: 30%;
+    }
+}
+
+.circle {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    background-color: rgb(245, 180, 179);
+    border: 2px solid black;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+}
+
+h2 {
+    margin: 0;
+    font-size: 24px;
+}
+
+p {
+    margin: 0;
+    font-size: 18px;
+}
+
+.arrow-container {
+    display: flex;
+    align-items: center;
+}
+
+.right-arrow {
+    display: inline-block;
+    margin: 30px;
+    width: 15px;
+    height: 15px;
+    border-top: 2px solid #000000;
+    border-left: 2px solid #000000;
+    transform-origin: center;
+    transform: rotate(135deg);
+}
+
+.right-arrow::after {
+    content: "";
+    display: block;
+    width: 2px;
+    height: 45px;
+    background-color: #000000;
+    transform: rotate(-45deg) translate(15px, 4px);
+}

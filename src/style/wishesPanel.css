@@ -1,0 +1,143 @@
+/* Основной контейнер для панели желаний */
+.wishes-panel {
+    position: relative;
+    max-height: 600px;
+    overflow-y: auto;
+    overflow-x: hidden; /* Оставляем только вертикальную прокрутку */
+}
+
+/* Контейнер для списка желаний */
+.wishes-list {
+    padding-top: 25px;
+}
+
+/* Стили для изображений */
+img {
+    width: 50px;
+    height: 50px;
+    border-radius: 30px;
+}
+
+/* Стили для изображений ссылок */
+img.wishLinkImg {
+    border-radius: 0;
+    width: 30px;
+    height: 30px;
+}
+
+/* Стили для неактивных изображений ссылок */
+img.wishLinkImg.disabled {
+    opacity: 20%;
+}
+
+/* Элемент списка желаний */
+.wish-item {
+    position: relative;
+    width: 65%;
+    height: 70px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(221, 106, 120, 0.5);
+    border-radius: 20px;
+    font-size: 20px;
+}
+
+.wish-item div {
+    width: 25%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.wish-item div.createdBy {
+    position: absolute;
+    left: 15px;
+    top: -30px;
+    font-size: 15px;
+    text-align: left;
+}
+
+.wishItemName {
+    border-right: 1px solid black;
+}
+
+/* Кнопка удаления */
+.deleteWish {
+    display: none;
+}
+
+/* Кастомная кнопка удаления */
+.deleteWishCustom {
+    position: absolute;
+    cursor: pointer;
+    width: 15px;
+    height: 15px;
+    background-color: #f8f9fa;
+    top: -15px;
+    right: -15px;
+    border-radius: 10px;
+}
+
+/* Изображение кнопки удаления */
+.deleteWishImg {
+    position: absolute;
+    top: 15%;
+    left: 15%;
+    width: 10px;
+    height: 10px;
+}
+
+/* Кнопки прокрутки */
+.scroll-button {
+    position: absolute;
+    background: transparent;
+    border: none;
+    width: 20px;
+    height: 20px;
+}
+
+/* Кнопка прокрутки вверх */
+.up {
+    rotate: 199grad; /* Поворот для корректного отображения */
+}
+
+/* Стили для избранных элементов */
+.favorite-wish {
+    margin: 40px auto 10px;
+}
+
+/* Контейнер для кнопок внутри элемента списка желаний */
+.button-container {
+    display: flex;
+    justify-content: space-around;
+}
+
+@media (max-width: 768px) {
+    .wishes-panel{
+        max-height: 500px;
+    }
+    .wish-item{
+        width: 90%;
+    }
+    .wish-item div{
+        font-size: 16px;
+    }
+
+    .wish-item img.wish-image{
+        width: 40px;
+        height: 40px;
+    }
+    .wish-item img.wishLinkImg, .wish-item img.favorite-button{
+        width: 20px;
+        height: 20px;
+    }
+    .createdBy{
+        min-width: 150px;
+    }
+
+
+    
+}
