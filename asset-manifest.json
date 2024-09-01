@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/Wishlist-with-profile/static/css/main.3ddd3b74.css",
-    "main.js": "/Wishlist-with-profile/static/js/main.e7fe6039.js",
-    "static/media/bear.png": "/Wishlist-with-profile/static/media/bear.16e819e74e1cebef878e.png",
-    "static/media/tools.png": "/Wishlist-with-profile/static/media/tools.c46ea56639bc8ffc30a3.png",
-    "static/media/wand.png": "/Wishlist-with-profile/static/media/wand.446704f5dd5fa499afca.png",
-    "static/media/userDefautl.png": "/Wishlist-with-profile/static/media/userDefautl.68cb0bff29e4bb329a2d.png",
-    "static/media/beauty.png": "/Wishlist-with-profile/static/media/beauty.d97f0c2174d24c936d46.png",
-    "static/media/personal-account.png": "/Wishlist-with-profile/static/media/personal-account.cb00d9ea34ac85776054.png",
-    "static/media/car.png": "/Wishlist-with-profile/static/media/car.0471edfc11cac066a087.png",
-    "static/media/hide.png": "/Wishlist-with-profile/static/media/hide.54b3107d160578572bcc.png",
-    "static/media/favorite.png": "/Wishlist-with-profile/static/media/favorite.92d8aeab5af46f5182f0.png",
-    "static/media/link.png": "/Wishlist-with-profile/static/media/link.1b0440572f8735fe4b99.png",
-    "static/media/iphone.png": "/Wishlist-with-profile/static/media/iphone.ff1ef6cf8941aade2fe3.png",
-    "static/media/smart-tv.png": "/Wishlist-with-profile/static/media/smart-tv.71ac217a134d147225b8.png",
-    "static/media/upload.png": "/Wishlist-with-profile/static/media/upload.43e03cf4b91794701558.png",
-    "static/media/favorite-2.png": "/Wishlist-with-profile/static/media/favorite-2.2197fa7d3a8bbd2c1163.png",
-    "index.html": "/Wishlist-with-profile/index.html",
-    "main.3ddd3b74.css.map": "/Wishlist-with-profile/static/css/main.3ddd3b74.css.map",
-    "main.e7fe6039.js.map": "/Wishlist-with-profile/static/js/main.e7fe6039.js.map"
+    "main.css": "/static/css/main.3ddd3b74.css",
+    "main.js": "/static/js/main.80b2ad7b.js",
+    "static/media/bear.png": "/static/media/bear.16e819e74e1cebef878e.png",
+    "static/media/tools.png": "/static/media/tools.c46ea56639bc8ffc30a3.png",
+    "static/media/wand.png": "/static/media/wand.446704f5dd5fa499afca.png",
+    "static/media/userDefautl.png": "/static/media/userDefautl.68cb0bff29e4bb329a2d.png",
+    "static/media/beauty.png": "/static/media/beauty.d97f0c2174d24c936d46.png",
+    "static/media/personal-account.png": "/static/media/personal-account.cb00d9ea34ac85776054.png",
+    "static/media/car.png": "/static/media/car.0471edfc11cac066a087.png",
+    "static/media/hide.png": "/static/media/hide.54b3107d160578572bcc.png",
+    "static/media/favorite.png": "/static/media/favorite.92d8aeab5af46f5182f0.png",
+    "static/media/link.png": "/static/media/link.1b0440572f8735fe4b99.png",
+    "static/media/iphone.png": "/static/media/iphone.ff1ef6cf8941aade2fe3.png",
+    "static/media/smart-tv.png": "/static/media/smart-tv.71ac217a134d147225b8.png",
+    "static/media/upload.png": "/static/media/upload.43e03cf4b91794701558.png",
+    "static/media/favorite-2.png": "/static/media/favorite-2.2197fa7d3a8bbd2c1163.png",
+    "index.html": "/index.html",
+    "main.3ddd3b74.css.map": "/static/css/main.3ddd3b74.css.map",
+    "main.80b2ad7b.js.map": "/static/js/main.80b2ad7b.js.map"
   },
   "entrypoints": [
     "static/css/main.3ddd3b74.css",
-    "static/js/main.e7fe6039.js"
+    "static/js/main.80b2ad7b.js"
   ]
 }
