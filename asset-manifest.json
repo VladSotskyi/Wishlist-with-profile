@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/Wishlist-with-profile/static/css/main.3ddd3b74.css",
-    "main.js": "/Wishlist-with-profile/static/js/main.ec639be0.js",
+    "main.js": "/Wishlist-with-profile/static/js/main.f388a4ee.js",
     "static/media/bear.png": "/Wishlist-with-profile/static/media/bear.16e819e74e1cebef878e.png",
     "static/media/tools.png": "/Wishlist-with-profile/static/media/tools.c46ea56639bc8ffc30a3.png",
     "static/media/wand.png": "/Wishlist-with-profile/static/media/wand.446704f5dd5fa499afca.png",
@@ -18,10 +18,10 @@
     "static/media/favorite-2.png": "/Wishlist-with-profile/static/media/favorite-2.2197fa7d3a8bbd2c1163.png",
     "index.html": "/Wishlist-with-profile/index.html",
     "main.3ddd3b74.css.map": "/Wishlist-with-profile/static/css/main.3ddd3b74.css.map",
-    "main.ec639be0.js.map": "/Wishlist-with-profile/static/js/main.ec639be0.js.map"
+    "main.f388a4ee.js.map": "/Wishlist-with-profile/static/js/main.f388a4ee.js.map"
   },
   "entrypoints": [
     "static/css/main.3ddd3b74.css",
-    "static/js/main.ec639be0.js"
+    "static/js/main.f388a4ee.js"
   ]
 }
