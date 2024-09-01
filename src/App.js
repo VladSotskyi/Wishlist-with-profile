@@ -37,6 +37,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/explore" element={<Explore />} />
+            <Route path="*" element={<div>Page Not Found</div>} />
           </Routes>
         </div>
         <SolarSystemDisplay currentUser={currentUser} />
