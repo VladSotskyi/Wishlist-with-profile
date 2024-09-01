@@ -29,7 +29,7 @@ function App() {
   const { currentUser } = useAuth();
 
   return (
-    <Router>
+    <Router basename="/Wishlist-with-profile">
       <ToastContainer />
       <div className="App">
         <NavBar />
