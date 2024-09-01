@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
   collection,
-  getDocs,
-  getDoc,
+  query,
+  onSnapshot,
   doc,
+  getDoc,
+  getDocs,
+  where,
   updateDoc,
   arrayUnion,
   arrayRemove,
@@ -13,60 +16,71 @@ import { db } from "../firebase";
 import Link from "../images/link.png";
 import "../style/explore.css";
 import userDefault from "../images/userDefautl.png";
-import favoriteActive from "../images/favorite-2.png"; // Импортируем изображение активного избранного
+import favoriteActive from "../images/favorite-2.png";
 import favoriteInactive from "../images/favorite.png";
-import { Riple } from "react-loading-indicators"; // Импортируем изображение неактивного избранного
+import { Riple } from "react-loading-indicators";
 
 function Explore() {
   const { currentUser } = useAuth();
   const [wishes, setWishes] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [loading, setLoading] = useState(true); // Добавляем состояние загрузки
+  const [loading, setLoading] = useState(true);
   const [userFavorites, setUserFavorites] = useState([]);
 
   useEffect(() => {
+    if (!currentUser?.uid) return;
+
     const fetchWishesAndUsers = async () => {
-      setLoading(true); // Запускаем загрузку
-      try {
+      setLoading(true);
+
+      const userDocRef = doc(db, "users", currentUser.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      if (userDocSnap.exists()) {
+        const userData = userDocSnap.data();
+        setUserFavorites(userData.favorites || []);
+
         const wishesCollection = collection(db, "wishes");
-        const usersCollection = collection(db, "users");
+        const q = query(wishesCollection);
 
-        const [wishesSnapshot, usersSnapshot] = await Promise.all([
-          getDocs(wishesCollection),
-          getDocs(usersCollection),
-        ]);
+        const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+          const wishesArray = querySnapshot.docs.map((doc) => ({
+            id: doc.id,
+            ...doc.data(),
+          }));
 
-        const usersMap = usersSnapshot.docs.reduce((acc, doc) => {
-          acc[doc.id] = {
-            name: doc.data().name,
-            photoURL: doc.data().photoURL || userDefault,
-          };
-          return acc;
-        }, {});
+          const userIds = [
+            ...new Set(wishesArray.map((wish) => wish.createdBy)),
+          ];
 
-        const wishesList = wishesSnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-          createdByName: usersMap[doc.data().createdBy]?.name || "Unknown",
-          createdByPhoto:
-            usersMap[doc.data().createdBy]?.photoURL || userDefault,
-        }));
+          if (userIds.length > 0) {
+            const usersCollection = collection(db, "users");
+            const usersQuerySnapshot = await getDocs(
+              query(usersCollection, where("uid", "in", userIds)),
+            );
 
-        setWishes(wishesList);
+            const usersMap = usersQuerySnapshot.docs.reduce((acc, userDoc) => {
+              acc[userDoc.id] = {
+                name: userDoc.data().name,
+                photoURL: userDoc.data().photoURL || userDefault,
+              };
+              return acc;
+            }, {});
 
-        // Fetch user favorites
-        if (currentUser) {
-          const userDocRef = doc(db, "users", currentUser.uid);
-          const userDocSnap = await getDoc(userDocRef);
+            const wishesWithCreators = wishesArray.map((wish) => ({
+              ...wish,
+              createdByName: usersMap[wish.createdBy]?.name || "Unknown",
+              createdByPhoto: usersMap[wish.createdBy]?.photoURL || userDefault,
+            }));
 
-          if (userDocSnap.exists()) {
-            setUserFavorites(userDocSnap.data().favorites || []);
+            setWishes(wishesWithCreators);
+          } else {
+            setWishes(wishesArray);
           }
-        }
-      } catch (error) {
-        console.error("Error fetching wishes or users:", error);
-      } finally {
-        setLoading(false); // Останавливаем загрузку
+          setLoading(false);
+        });
+
+        return () => unsubscribe();
       }
     };
 
@@ -78,7 +92,6 @@ function Explore() {
       const userDocRef = doc(db, "users", currentUser.uid);
 
       if (userFavorites.includes(wishId)) {
-        // Remove from favorites
         await updateDoc(userDocRef, {
           favorites: arrayRemove(wishId),
         });
@@ -86,7 +99,6 @@ function Explore() {
           prevFavorites.filter((id) => id !== wishId),
         );
       } else {
-        // Add to favorites
         await updateDoc(userDocRef, {
           favorites: arrayUnion(wishId),
         });
@@ -97,7 +109,6 @@ function Explore() {
     }
   };
 
-  // Фильтрация списка желаний на основе поискового запроса
   const filteredWishes = wishes.filter(
     (wish) =>
       wish.itemName.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -106,7 +117,6 @@ function Explore() {
 
   return (
     <div>
-      {" "}
       <div className="search-container">
         <input
           type="text"
