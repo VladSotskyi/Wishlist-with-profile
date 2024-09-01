@@ -159,7 +159,6 @@ function ModalMakeAWish(props) {
               autoClose={1000}
               newestOnTop={false}
             />
-            ;
             <form
               className="makeWishModalBody"
               action=""

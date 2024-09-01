@@ -28,66 +28,71 @@ function Explore() {
   const [userFavorites, setUserFavorites] = useState([]);
 
   useEffect(() => {
-    if (!currentUser?.uid) return;
-
     const fetchWishesAndUsers = async () => {
       setLoading(true);
 
-      const userDocRef = doc(db, "users", currentUser.uid);
-      const userDocSnap = await getDoc(userDocRef);
+      let userFavoritesData = [];
+      if (currentUser?.uid) {
+        const userDocRef = doc(db, "users", currentUser.uid);
+        const userDocSnap = await getDoc(userDocRef);
 
-      if (userDocSnap.exists()) {
-        const userData = userDocSnap.data();
-        setUserFavorites(userData.favorites || []);
+        if (userDocSnap.exists()) {
+          const userData = userDocSnap.data();
+          userFavoritesData = userData.favorites || [];
+          setUserFavorites(userFavoritesData);
+        }
+      }
 
-        const wishesCollection = collection(db, "wishes");
-        const q = query(wishesCollection);
+      const wishesCollection = collection(db, "wishes");
+      const q = query(wishesCollection);
 
-        const unsubscribe = onSnapshot(q, async (querySnapshot) => {
-          const wishesArray = querySnapshot.docs.map((doc) => ({
-            id: doc.id,
-            ...doc.data(),
+      const unsubscribe = onSnapshot(q, async (querySnapshot) => {
+        const wishesArray = querySnapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        }));
+
+        const userIds = [...new Set(wishesArray.map((wish) => wish.createdBy))];
+
+        if (userIds.length > 0) {
+          const usersCollection = collection(db, "users");
+          const usersQuerySnapshot = await getDocs(
+            query(usersCollection, where("uid", "in", userIds)),
+          );
+
+          const usersMap = usersQuerySnapshot.docs.reduce((acc, userDoc) => {
+            acc[userDoc.id] = {
+              name: userDoc.data().name,
+              photoURL: userDoc.data().photoURL || userDefault,
+            };
+            return acc;
+          }, {});
+
+          const wishesWithCreators = wishesArray.map((wish) => ({
+            ...wish,
+            createdByName: usersMap[wish.createdBy]?.name || "Unknown",
+            createdByPhoto: usersMap[wish.createdBy]?.photoURL || userDefault,
           }));
 
-          const userIds = [
-            ...new Set(wishesArray.map((wish) => wish.createdBy)),
-          ];
+          setWishes(wishesWithCreators);
+        } else {
+          setWishes(wishesArray);
+        }
+        setLoading(false);
+      });
 
-          if (userIds.length > 0) {
-            const usersCollection = collection(db, "users");
-            const usersQuerySnapshot = await getDocs(
-              query(usersCollection, where("uid", "in", userIds)),
-            );
-
-            const usersMap = usersQuerySnapshot.docs.reduce((acc, userDoc) => {
-              acc[userDoc.id] = {
-                name: userDoc.data().name,
-                photoURL: userDoc.data().photoURL || userDefault,
-              };
-              return acc;
-            }, {});
-
-            const wishesWithCreators = wishesArray.map((wish) => ({
-              ...wish,
-              createdByName: usersMap[wish.createdBy]?.name || "Unknown",
-              createdByPhoto: usersMap[wish.createdBy]?.photoURL || userDefault,
-            }));
-
-            setWishes(wishesWithCreators);
-          } else {
-            setWishes(wishesArray);
-          }
-          setLoading(false);
-        });
-
-        return () => unsubscribe();
-      }
+      return () => unsubscribe();
     };
 
     fetchWishesAndUsers();
   }, [currentUser]);
 
   const handleFavoriteToggle = async (wishId) => {
+    if (!currentUser?.uid) {
+      // Можно показать уведомление о необходимости входа в систему, если пользователь не авторизован
+      return;
+    }
+
     try {
       const userDocRef = doc(db, "users", currentUser.uid);
 
@@ -185,7 +190,7 @@ function Explore() {
                           : favoriteInactive
                       }
                       alt="favorite"
-                      className="favorite-button"
+                      className={`favorite-button ${!currentUser ? "disabled" : ""}`}
                       onClick={() => handleFavoriteToggle(wish.id)}
                     />
                   </div>
