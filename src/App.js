@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  BrowserRouter as Router,
+  HashRouter as Router,
   Routes,
   Route,
   useLocation,
@@ -29,7 +29,7 @@ function App() {
   const { currentUser } = useAuth();
 
   return (
-    <Router basename="/Wishlist-with-profile">
+    <Router>
       <ToastContainer />
       <div className="App">
         <NavBar />
