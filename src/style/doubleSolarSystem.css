@@ -1,5 +1,5 @@
 .solar-system-container-1 {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     transform: translateX(-50%);
@@ -10,7 +10,7 @@
 }
 
 .solar-system-container-2 {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
     transform: translateX(50%);
