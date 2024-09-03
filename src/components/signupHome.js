@@ -7,6 +7,10 @@ import "../style/signupHome.css";
 import userDefault from "../images/userDefautl.png";
 import WishesPanel from "./wishesPanel";
 
+import Accept from "../images/check.png";
+import Decline from "../images/cross.png";
+import Edit from "../images/edit.png";
+
 function SignupHome() {
   const { currentUser } = useAuth();
 
@@ -116,7 +120,9 @@ function SignupHome() {
                 style={{ display: "none" }}
                 onChange={handlePhotoChange}
               />
-              <div className="edit-photo">✎</div>
+              <div className="edit-photo">
+                <img className="edit-photo-button-img" src={Edit} alt="edit" />
+              </div>
             </label>
           </div>
           <div className="profile-nav-item">
@@ -143,11 +149,25 @@ function SignupHome() {
           ) : (
             <h2>{userName}</h2>
           )}
-          <label>
-            <button onClick={handleNameEditToggle} className="edit-name-button">
-              {isEditingName ? (isNameChanged ? "✔️" : "✖️") : "✎"}{" "}
-            </button>
-          </label>
+          <button onClick={handleNameEditToggle} className="edit-name-button">
+            {isEditingName ? (
+              isNameChanged ? (
+                <img
+                  className="edit-name-button-img"
+                  src={Accept}
+                  alt="Accept"
+                />
+              ) : (
+                <img
+                  className="edit-name-button-img"
+                  src={Decline}
+                  alt="decline"
+                />
+              )
+            ) : (
+              <img className="edit-name-button-img" src={Edit} alt="edit" />
+            )}{" "}
+          </button>
         </div>
         <WishesPanel activeOption={activeOption} />
       </div>

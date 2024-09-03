@@ -88,10 +88,11 @@ function Explore() {
   }, [currentUser]);
 
   const handleFavoriteToggle = async (wishId) => {
-    if (!currentUser?.uid) {
-      // Можно показать уведомление о необходимости входа в систему, если пользователь не авторизован
-      return;
-    }
+    setUserFavorites((prevFavorites) =>
+      prevFavorites.includes(wishId)
+        ? prevFavorites.filter((id) => id !== wishId)
+        : [...prevFavorites, wishId],
+    );
 
     try {
       const userDocRef = doc(db, "users", currentUser.uid);
@@ -100,17 +101,19 @@ function Explore() {
         await updateDoc(userDocRef, {
           favorites: arrayRemove(wishId),
         });
-        setUserFavorites((prevFavorites) =>
-          prevFavorites.filter((id) => id !== wishId),
-        );
       } else {
         await updateDoc(userDocRef, {
           favorites: arrayUnion(wishId),
         });
-        setUserFavorites((prevFavorites) => [...prevFavorites, wishId]);
       }
     } catch (error) {
       console.error("Error toggling favorite: ", error);
+      // В случае ошибки можно вернуть состояние обратно
+      setUserFavorites((prevFavorites) =>
+        prevFavorites.includes(wishId)
+          ? [...prevFavorites, wishId]
+          : prevFavorites.filter((id) => id !== wishId),
+      );
     }
   };
 
@@ -190,7 +193,7 @@ function Explore() {
                           : favoriteInactive
                       }
                       alt="favorite"
-                      className={`favorite-button ${!currentUser ? "disabled" : ""}`}
+                      className={`favorite-button ${!currentUser ? "inactive" : ""}`}
                       onClick={() => handleFavoriteToggle(wish.id)}
                     />
                   </div>

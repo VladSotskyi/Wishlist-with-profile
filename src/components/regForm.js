@@ -62,7 +62,7 @@ function RegForm({ closeModal }) {
           className="info-input"
           size="lg"
           value={name}
-          type="text"
+          type="name"
           onChange={(e) => setName(e.target.value)}
           placeholder="Enter your name..."
         />

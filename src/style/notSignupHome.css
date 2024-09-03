@@ -92,7 +92,7 @@
     }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 419px) {
     .instruction {
         display: none;
     }

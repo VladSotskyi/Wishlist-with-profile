@@ -81,6 +81,10 @@ img.exploreLinkImg.disabled {
     cursor: default;
 }
 
+img.favorite-button.inactive{
+    display: none;
+}
+
 .explore-item {
     position: relative;
     width: 65%;

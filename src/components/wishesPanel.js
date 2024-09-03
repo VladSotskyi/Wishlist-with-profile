@@ -137,6 +137,13 @@ function WishesPanel({ activeOption }) {
   };
 
   const handleFavoriteToggle = async (wishId) => {
+    // Сначала меняем состояние, чтобы обновить картинку
+    setUserFavorites((prevFavorites) =>
+      prevFavorites.includes(wishId)
+        ? prevFavorites.filter((id) => id !== wishId)
+        : [...prevFavorites, wishId],
+    );
+
     try {
       const userDocRef = doc(db, "users", currentUser.uid);
 
@@ -144,9 +151,6 @@ function WishesPanel({ activeOption }) {
         await updateDoc(userDocRef, {
           favorites: arrayRemove(wishId),
         });
-        setUserFavorites((prevFavorites) =>
-          prevFavorites.filter((id) => id !== wishId),
-        );
 
         if (activeOption === "favorites") {
           setWishes((prevWishes) =>
@@ -157,10 +161,15 @@ function WishesPanel({ activeOption }) {
         await updateDoc(userDocRef, {
           favorites: arrayUnion(wishId),
         });
-        setUserFavorites((prevFavorites) => [...prevFavorites, wishId]);
       }
     } catch (error) {
       console.error("Error toggling favorite: ", error);
+      // В случае ошибки можно отменить изменение состояния
+      setUserFavorites((prevFavorites) =>
+        prevFavorites.includes(wishId)
+          ? [...prevFavorites, wishId]
+          : prevFavorites.filter((id) => id !== wishId),
+      );
     }
   };
 

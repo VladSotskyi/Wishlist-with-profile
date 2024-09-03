@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
-import Modal from "react-bootstrap/Modal";
-import Upload from "../images/upload.png";
-import "../style/modalMakeAWish.css";
-import { db, storage } from "../firebase"; // Предполагается, что у вас есть правильная конфигурация
+import { db, storage } from "../firebase";
 import { collection, setDoc, doc } from "firebase/firestore";
 import { useAuth } from "../context/authContext";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { Riple } from "react-loading-indicators";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import "../style/modalMakeAWish.css";
+import Modal from "react-bootstrap/Modal";
+import Upload from "../images/upload.png";
 
 function ModalMakeAWish(props) {
   const [itemName, setItemName] = useState("");
@@ -19,10 +19,11 @@ function ModalMakeAWish(props) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [isFormValid, setIsFormValid] = useState(false);
   const [previewUrl, setPreviewUrl] = useState(null);
-  const [loading, setLoading] = useState(false); // Добавляем состояние загрузки
+  const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
 
   const MAX_ESTIMATED_VALUE = 1000000000; // 1 миллиард
+  const MIN_ESTIMATED_VALUE = 0;
 
   const { currentUser } = useAuth();
 
@@ -39,10 +40,14 @@ function ModalMakeAWish(props) {
     if (!isNaN(value) && value > MAX_ESTIMATED_VALUE) {
       toast.error("Estimated value cannot be over 1 billion");
       setEstimatedValue(MAX_ESTIMATED_VALUE.toString());
-      setHasError(true); // Устанавливаем ошибку
+      setHasError(true);
+    } else if (!isNaN(value) && value < MIN_ESTIMATED_VALUE) {
+      toast.error("Estimated value cannot be less than 0");
+      setEstimatedValue(MIN_ESTIMATED_VALUE.toString());
+      setHasError(true);
     } else {
       setEstimatedValue(e.target.value);
-      setHasError(false); // Сбрасываем ошибку, если значение корректное
+      setHasError(false);
     }
   };
 

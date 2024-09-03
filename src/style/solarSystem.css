@@ -82,6 +82,11 @@
         display: none;
     }
 }
+@media (min-width: 420px) and (max-width: 740px){
+    .solar-system-container{
+        display: none;
+    }
+}
 
 
 /* Скрываем solar-system-container при горизонтальной ориентации на мобильных устройствах */
