@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/Wishlist-with-profile/static/css/main.3bf219cd.css",
-    "main.js": "/Wishlist-with-profile/static/js/main.d143a56c.js",
+    "main.css": "/Wishlist-with-profile/static/css/main.6e6c9ee3.css",
+    "main.js": "/Wishlist-with-profile/static/js/main.f1d9f0f3.js",
     "static/media/bear.png": "/Wishlist-with-profile/static/media/bear.16e819e74e1cebef878e.png",
     "static/media/tools.png": "/Wishlist-with-profile/static/media/tools.c46ea56639bc8ffc30a3.png",
     "static/media/wand.png": "/Wishlist-with-profile/static/media/wand.446704f5dd5fa499afca.png",
@@ -9,6 +9,7 @@
     "static/media/beauty.png": "/Wishlist-with-profile/static/media/beauty.d97f0c2174d24c936d46.png",
     "static/media/personal-account.png": "/Wishlist-with-profile/static/media/personal-account.cb00d9ea34ac85776054.png",
     "static/media/car.png": "/Wishlist-with-profile/static/media/car.0471edfc11cac066a087.png",
+    "static/media/cross.png": "/Wishlist-with-profile/static/media/cross.24aa4052845c1ec28806.png",
     "static/media/hide.png": "/Wishlist-with-profile/static/media/hide.54b3107d160578572bcc.png",
     "static/media/favorite.png": "/Wishlist-with-profile/static/media/favorite.92d8aeab5af46f5182f0.png",
     "static/media/link.png": "/Wishlist-with-profile/static/media/link.1b0440572f8735fe4b99.png",
@@ -17,11 +18,11 @@
     "static/media/upload.png": "/Wishlist-with-profile/static/media/upload.43e03cf4b91794701558.png",
     "static/media/favorite-2.png": "/Wishlist-with-profile/static/media/favorite-2.2197fa7d3a8bbd2c1163.png",
     "index.html": "/Wishlist-with-profile/index.html",
-    "main.3bf219cd.css.map": "/Wishlist-with-profile/static/css/main.3bf219cd.css.map",
-    "main.d143a56c.js.map": "/Wishlist-with-profile/static/js/main.d143a56c.js.map"
+    "main.6e6c9ee3.css.map": "/Wishlist-with-profile/static/css/main.6e6c9ee3.css.map",
+    "main.f1d9f0f3.js.map": "/Wishlist-with-profile/static/js/main.f1d9f0f3.js.map"
   },
   "entrypoints": [
-    "static/css/main.3bf219cd.css",
-    "static/js/main.d143a56c.js"
+    "static/css/main.6e6c9ee3.css",
+    "static/js/main.f1d9f0f3.js"
   ]
 }
